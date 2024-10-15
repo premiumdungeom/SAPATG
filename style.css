@@ -8,6 +8,7 @@
 :root {
   --bg: #000;
   --text: #fff;
+  --primary: #360606;
 }
 body {
   background: var(--bg);
@@ -38,6 +39,11 @@ body {
   font-size: 17px;
   color: var(--bg);
   background: var(--text);
+  border-radius: 5px;
+}
+.container nav ul li a.active {
+  color: var(--text);
+  background: var(--primary);
   border-radius: 5px;
 }
 
