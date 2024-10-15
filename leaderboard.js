@@ -71,25 +71,25 @@ window.addEventListener("load", (e) => {
   if (window.Telegram && window.Telegram.WebApp) {
     const user = window.Telegram.WebApp.initDataUnsafe?.user;
     userName = user.username;
-    const dbRef = ref(db);
-    get(child(dbRef, "users"))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const userData = snapshot.val();
-          const usersArray = Object.entries(userData).map(([key, value]) => ({
-            username: key,
-            ...value,
-          }));
-          // console.log(usersArray);
-          const sortedUsers = usersArray.sort((a, b) => b.points - a.points);
-          const topUsers = sortedUsers.slice(0, 100);
-          // console.log(sortedUsers);
+  const dbRef = ref(db);
+  get(child(dbRef, "users"))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const userData = snapshot.val();
+        const usersArray = Object.entries(userData).map(([key, value]) => ({
+          username: key,
+          ...value,
+        }));
+        // console.log(usersArray);
+        const sortedUsers = usersArray.sort((a, b) => b.points - a.points);
+        const topUsers = sortedUsers.slice(0,100);
+        // console.log(sortedUsers);
 
-          const userRank =
-            topUsers.findIndex((user) => user.username === userName) + 1;
-          // console.log(userRank);
-          if (userRank > 0) {
-            txt_cont.innerHTML = `
+        const userRank =
+          topUsers.findIndex((user) => user.username === userName) + 1;
+        // console.log(userRank);
+        if (userRank > 0) {
+          txt_cont.innerHTML = `
            <div class="dpcont">
             <div class="dp">
             ${topUsers[userRank - 1].username.charAt(0)}
@@ -101,12 +101,12 @@ window.addEventListener("load", (e) => {
           </div>
           <span>#${userRank}</span>
           `;
-          }
-          renderLeaderBoard(topUsers);
         }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        renderLeaderBoard(topUsers);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 });
