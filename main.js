@@ -113,10 +113,11 @@ tapCount.addEventListener("click", tap);
 
 // RUNS WHEN THE WEBSITE LOADS
 window.addEventListener("load", () => {
-  if (window.Telegram && window.Telegram.WebApp) {
-    const user = window.Telegram.WebApp.initDataUnsafe?.user;
-    userName = user.username;
-    userCont.textContent = user.username;
+  // if (window.Telegram && window.Telegram.WebApp) {
+  //   const user = window.Telegram.WebApp.initDataUnsafe?.user;
+  //   userName = user.username;
+  userName = "Nuelyoungtech";
+    // userCont.textContent = userName;
     const dbref = ref(db);
     get(child(dbref, "users/" + userName)).then((snapshot) => {
       if (snapshot.exists()) {
@@ -130,7 +131,6 @@ window.addEventListener("load", () => {
       const savedPoints = localStorage.getItem(userName);
       pointCont.textContent = Number(savedPoints);
     }
-  }
 });
 // window.addEventListener("load", () => {
 //     userName = "Nuelyoungtech";
