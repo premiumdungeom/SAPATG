@@ -105,7 +105,9 @@ const handleTaskClick = (e) => {
         update(userPointsRef, {
           points: Number(currentPoints) + taskPoints,
         });
-        e.target.parentNode.remove();
+       // console.log(e.target.parentNode);
+        // e.target.parentNode.remove(); this one doesn't work on telegram apps, due to the limited browser features and constraints of the Telegram in-app browser
+        e.target.parentNode.style.display = "none"; //this one works
       });
     })
     .catch((err) => {
