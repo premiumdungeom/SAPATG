@@ -11,7 +11,7 @@ import {
   get,
 } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
 
-const usernameCont = document.querySelector("#usernameCont");
+const usernameCont = document.querySelector(".usernameCont");
 const usernameinput = document.querySelector("#usernameinput");
 const submitBtn = document.querySelector("#submitBtn");
 const refForm = document.querySelector("#refForm");
@@ -63,7 +63,11 @@ submitBtn.addEventListener("click", topUpRef);
 CopyBtn.addEventListener("click", copyUsername);
 // RUNS WHEN THE WEBSITE LOADS
 window.addEventListener("load", () => {
-  userName = "Nuelyoungtech";
+  // userName = "Nuelyoungtech";
+  if (window.Telegram && window.Telegram.WebApp) {
+    const user = window.Telegram.WebApp.initDataUnsafe?.user;
+    userName = user.username;
+  usernameCont.innerHTML = userName;
   get(ref(db, `users/${userName}/referred`)).then((snapshot) => {
     console.log(snapshot.val());
     const refExists = snapshot.exists() ? snapshot.val() : false;
@@ -71,6 +75,7 @@ window.addEventListener("load", () => {
       refForm.classList.add("no_show");
     }
   });
+}
 });
 /**
  *https://app.tonkeeper.com/ton-connect?v=2&id=testAppId123&r=%7B%22manifestUrl%22%3A%22https%3A%2F%2Fraw.githubusercontent.com%2Fnuex001%2FTonkeepermanifest%2Fmain%2Ftonconnect-manifest.json%22%2C%22items%22%3A%5B%7B%22name%22%3A%22ton_addr%22%7D%5D%7D
