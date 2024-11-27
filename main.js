@@ -113,11 +113,10 @@ tapCount.addEventListener("click", tap);
 
 // RUNS WHEN THE WEBSITE LOADS
 window.addEventListener("load", () => {
-  // if (window.Telegram && window.Telegram.WebApp) {
-  //   const user = window.Telegram.WebApp.initDataUnsafe?.user;
-  //   userName = user.username;
-  userName = "Nuelyoungtech";
-    // userCont.textContent = userName;
+  if (window.Telegram && window.Telegram.WebApp) {
+    const user = window.Telegram.WebApp.initDataUnsafe?.user;
+    userName = user.username;
+    userCont.textContent = userName;
     const dbref = ref(db);
     get(child(dbref, "users/" + userName)).then((snapshot) => {
       if (snapshot.exists()) {
@@ -126,11 +125,44 @@ window.addEventListener("load", () => {
         console.log("Not found");
       }
     });
-    if (localStorage.getItem(userName) !== "undefined") {
-      console.log(localStorage.getItem(userName));
-      const savedPoints = localStorage.getItem(userName);
-      pointCont.textContent = Number(savedPoints);
-    }
+
+  }
+
+  // NEW FOR DOGS REPLICATE
+  // if (window.Telegram && window.Telegram.WebApp) {
+  //   const user = window.Telegram.WebApp.initDataUnsafe?.user;
+  //   const isPremium = user.is_premium
+  //   const dp = user.photo_url;
+  //   // alert(JSON.stringify(user.is_premium),JSON.stringify(user.photo_url))
+  //   const userId = user.id;
+  //   if (userId) {
+  //     let creationDate;
+  //     if (userId < 100000000) {
+  //       creationDate = "2014 or earlier";
+  //     } else if (userId < 1000000000) {
+  //       creationDate = "2015-2017";
+  //     } else if (userId < 1000000000) {
+  //       creationDate = "2018-2019";
+  //     } else if (userId < 8000000000) {
+  //       creationDate = "2020-2021";
+  //     } else {
+  //       creationDate = "2022 or later";
+  //     }
+  //     alert(creationDate);
+  //   }
+  //   // alert(JSON.stringify(user.photo_url))
+  //   userName = user.username;
+  //   userCont.textContent = userName;
+  //   const dbref = ref(db);
+  //   get(child(dbref, "users/" + userName)).then((snapshot) => {
+  //     if (snapshot.exists()) {
+  //       pointCont.textContent = snapshot.val().points;
+  //     } else {
+  //       console.log("Not found");
+  //     }
+  //   });
+
+  // }
 });
 // window.addEventListener("load", () => {
 //     userName = "Nuelyoungtech";
