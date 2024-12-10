@@ -97,8 +97,8 @@ body {
   cursor: pointer;
 }
 .container .ref h3 {
-  color: var(--primary);
-  font-size: 2em;
+  color: var(--text);
+  font-size: 1.8em;
   margin-top: 0.5em;
 }
 
@@ -111,7 +111,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 2em;
-  margin-top: 4em;
+  margin-top: 1em;
   /* border: 2px solid; */
 }
 .container .ref .rows form {
@@ -153,3 +153,46 @@ body {
 .container .ref .rows form.no_show {
   display: none;
 }
+
+/* NEW CODE FOR THE REF */
+.container .ref .rows ul {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+  padding: 15px 0px;
+  padding-bottom: 20px;
+}
+.container .ref .rows ul li {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5px;
+}
+.container .ref .rows ul li .dp {
+  width: 30px;
+  height: 30px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--text);
+  background: var(--primary);
+}
+.container .ref .rows ul li h2 {
+  width: calc(100% - 40px);
+  font-size: 12px;
+  color: var(--text);
+  display: flex;
+  justify-content: space-between;
+  gap: 0.4em;
+  font-weight: 600;
+}
+
+
