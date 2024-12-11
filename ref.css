@@ -123,6 +123,7 @@ body {
   justify-content: center;
   font-family: Arial, Helvetica, sans-serif;
   gap: 2em;
+  display: none;
 }
 .container .ref .rows form input {
   width: 100%;
@@ -150,8 +151,9 @@ body {
   outline: none;
   border: none;
 }
-.container .ref .rows form.no_show {
-  display: none;
+.container .ref .rows form.show {
+  /* changed this to fit the new js effect */
+  display: flex;
 }
 
 /* NEW CODE FOR THE REF */
@@ -194,5 +196,3 @@ body {
   gap: 0.4em;
   font-weight: 600;
 }
-
-

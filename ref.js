@@ -36,13 +36,13 @@ const analytics = getAnalytics(app);
 // *****
 const db = getDatabase();
 
-// 
+//
 const renderRefBoard = (refData) => {
   if (refData.length > 0) {
     // console.log(refData);
     let refBoardHtml = refData
       .map((ref, idx) => {
-          return `
+        return `
          <li>
             <div class="dp">
             ${ref.username.toString().charAt(0).toUpperCase()}
@@ -56,7 +56,7 @@ const renderRefBoard = (refData) => {
       })
       .join("");
 
-      refCont.innerHTML = refBoardHtml;
+    refCont.innerHTML = refBoardHtml;
     // console.log(taskBoardHtml);
   }
 };
@@ -106,36 +106,39 @@ window.addEventListener("load", async () => {
   if (window.Telegram && window.Telegram.WebApp) {
     const user = window.Telegram.WebApp.initDataUnsafe?.user;
     userName = user.username;
-  usernameCont.innerHTML = userName;
-  const userReferredRef = ref(db, `users/${userName}/referred`);
-  const userReferredSnapsot = await get(userReferredRef);
-  const refExists = userReferredSnapsot.exists()
-    ? userReferredSnapsot.val()
-    : false;
-  if (refExists) {
-    refForm.classList.add("no_show");
-    const userReferralsRef = ref(db, `users/${userName}/referrals`);
-    const userReferralsSnapshot = await get(userReferralsRef);
-    const currentReferrals = userReferralsSnapshot.exists()
-      ? userReferralsSnapshot.val()
-      : [];
-    if (currentReferrals.length > 0) {
-      ref_no_cont.innerHTML = currentReferrals.length;
-      // console.log(currentReferrals);
-      const referralDetails = await Promise.all(
-        currentReferrals.map(async (refItem)=>{
-          const refDataSnapshot = await get(ref(db,`users/${refItem}/points`));
-        const  point =  refDataSnapshot.exists()? refDataSnapshot.val():1;
-        const details ={
-          username:refItem,
-          points:point,
-        }
-        return details
-        })
-      )
-      renderRefBoard(referralDetails);
+    usernameCont.innerHTML = userName;
+    const userReferredRef = ref(db, `users/${userName}/referred`);
+    const userReferredSnapsot = await get(userReferredRef);
+    const refExists = userReferredSnapsot.exists()
+      ? userReferredSnapsot.val()
+      : false;
+    if (refExists) {
+      const userReferralsRef = ref(db, `users/${userName}/referrals`);
+      const userReferralsSnapshot = await get(userReferralsRef);
+      const currentReferrals = userReferralsSnapshot.exists()
+        ? userReferralsSnapshot.val()
+        : [];
+      if (currentReferrals.length > 0) {
+        ref_no_cont.innerHTML = currentReferrals.length;
+        // console.log(currentReferrals);
+        const referralDetails = await Promise.all(
+          currentReferrals.map(async (refItem) => {
+            const refDataSnapshot = await get(
+              ref(db, `users/${refItem}/points`)
+            );
+            const point = refDataSnapshot.exists() ? refDataSnapshot.val() : 1;
+            const details = {
+              username: refItem,
+              points: point,
+            };
+            return details;
+          })
+        );
+        renderRefBoard(referralDetails);
+      }
+    } else {
+      refForm.classList.add("show"); //aded this extra
     }
-  }
   }
 });
 /**
